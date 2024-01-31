@@ -15,12 +15,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Set env
       run: |
         echo "BUILD_VERSION=${GITHUB_REF:10}" >> $GITHUB_ENV
 
-    - name: Checkout
-      uses: actions/checkout@v4
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
     - name: Login to the Container registry
       uses: docker/login-action@v3
@@ -41,5 +47,6 @@ jobs:
         context: .
         push: true
         build-args: BUILD_VERSION=v${{ env.BUILD_VERSION }}
+        platforms: linux/amd64,linux/arm64
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
