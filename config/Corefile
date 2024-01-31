@@ -8,9 +8,9 @@
         allow net 192.168.0.0/24
         block
     }
-    blocker /etc/coredns/d3host.hosts.lst 1h hosts
-    #blocker /etc/coredns/blacklist.abp.lst 1h abp
+    blocker /etc/coredns/ad.hosts.lst 1h hosts
     forward . 1.1.1.1:53 1.0.0.1:53 {
+        policy round_robin
         max_concurrent 128
     }
 }
