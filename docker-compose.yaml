@@ -1,0 +1,31 @@
+---
+version: '3.8'
+
+x-logging:
+  &default-logging
+  driver: "json-file"
+  options:
+      max-size: "300k"
+      max-file: "10"
+
+services:
+  coredns:
+    image: jeffscrum/coredns-blocker:1.11.1
+    container_name: coredns
+    restart: unless-stopped
+    ports:
+      - 53:53
+      - 53:53/udp
+      - 9153:9153
+    volumes:
+      - /opt/docker/coredns:/etc/coredns
+    security_opt:
+      - no-new-privileges
+    command: '-conf /etc/coredns/Corefile'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 100M
+        reservations:
+          memory: 15M
