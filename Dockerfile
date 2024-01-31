@@ -4,7 +4,7 @@ ARG BASE=gcr.io/distroless/static-debian11:nonroot
 ARG BUILD_VERSION=v1.11.1
 
 
-FROM --platform=$BUILDPLATFORM ${SCRATCH_IMAGE} AS scratch
+FROM ${SCRATCH_IMAGE} AS scratch
 ARG BUILD_VERSION
 RUN git clone --depth 1 --branch ${BUILD_VERSION} https://github.com/coredns/coredns.git /coredns; \
     git clone --depth 1 https://github.com/icyflame/blocker.git /coredns/plugin/blocker; \
@@ -14,7 +14,7 @@ WORKDIR /coredns
 RUN make
 
 
-FROM --platform=$BUILDPLATFORM ${DEBIAN_IMAGE} AS build
+FROM ${DEBIAN_IMAGE} AS build
 SHELL [ "/bin/sh", "-ec" ]
 RUN export DEBCONF_NONINTERACTIVE_SEEN=true \
            DEBIAN_FRONTEND=noninteractive \
@@ -28,7 +28,7 @@ COPY --from=scratch /coredns/coredns /coredns
 RUN setcap cap_net_bind_service=+ep /coredns
 
 
-FROM --platform=$BUILDPLATFORM ${BASE}
+FROM ${BASE}
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=build /coredns /coredns
 USER nonroot:nonroot
