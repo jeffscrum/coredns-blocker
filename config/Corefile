@@ -13,5 +13,4 @@
     forward . 1.1.1.1:53 1.0.0.1:53 {
         max_concurrent 128
     }
-    loadbalance
 }
