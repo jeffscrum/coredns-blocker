@@ -40,6 +40,6 @@ jobs:
       with:
         context: .
         push: true
-        build-args: BUILD_VERSION=${{ env.BUILD_VERSION }}
+        build-args: BUILD_VERSION=v${{ env.BUILD_VERSION }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
