@@ -10,8 +10,7 @@ RUN git clone --depth 1 --branch ${BUILD_VERSION} https://github.com/coredns/cor
     git clone --depth 1 https://github.com/icyflame/blocker.git /coredns/plugin/blocker; \
     sed '/^forward:forward/i blocker:blocker' /coredns/plugin.cfg > /coredns/plugin.cfg1; \
     mv /coredns/plugin.cfg1 /coredns/plugin.cfg; \
-    echo "rrl:github.com/coredns/rrl/plugins/rrl" >> /coredns/plugin.cfg; \
-    echo "alternate:github.com/coredns/alternate" >> /coredns/plugin.cfg
+    echo "rrl:github.com/coredns/rrl/plugins/rrl" >> /coredns/plugin.cfg
 WORKDIR /coredns
 RUN make
 
