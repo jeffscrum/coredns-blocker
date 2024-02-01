@@ -12,7 +12,7 @@ RUN git clone --depth 1 --branch ${BUILD_VERSION} https://github.com/coredns/cor
     sed '/^forward:forward/i blocker:blocker' /coredns/plugin.cfg > /coredns/plugin.cfg1; \
     mv /coredns/plugin.cfg1 /coredns/plugin.cfg
 # Add rate limiting plugin (https://coredns.io/explugins/rrl/)
-RUN echo "rrl:github.com/coredns/rrl" >> /coredns/plugin.cfg
+RUN echo "rrl:github.com/coredns/rrl/plugins/rrl" >> /coredns/plugin.cfg
 WORKDIR /coredns
 RUN make
 
