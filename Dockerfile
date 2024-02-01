@@ -8,9 +8,9 @@ FROM ${SCRATCH_IMAGE} AS scratch
 ARG BUILD_VERSION
 RUN git clone --depth 1 --branch ${BUILD_VERSION} https://github.com/coredns/coredns.git /coredns; \
     git clone --depth 1 https://github.com/icyflame/blocker.git /coredns/plugin/blocker; \
-    sed '/^forward:forward/i blocker:blocker' /coredns/plugin.cfg > /coredns/plugin.cfg1; \
-    mv /coredns/plugin.cfg1 /coredns/plugin.cfg; \
-    echo "rrl:github.com/coredns/rrl/plugins/rrl" >> /coredns/plugin.cfg
+    sed -ie '/^forward:forward/i blocker:blocker' /coredns/plugin.cfg; \
+    sed -ie '/^root:root/i rrl:github.com/coredns/rrl/plugins/rrl' /coredns/plugin.cfg; \
+    sed -ie '/^root:root/i alternate:github.com/coredns/alternate' /coredns/plugin.cfg; \
 WORKDIR /coredns
 RUN make
 
