@@ -1,15 +1,17 @@
-# CoreDNS + blocker plugin + rrl
+# CoreDNS server with plugins 
 
-CoreDNS server + blocker plugin + rate limit plugin (rrl). 
+CoreDNS server with plugins:
+- blocker
+- response rate limiting (rrl)
+- alternate
 
-You can read more about blocker plugin [here](https://blog.siddharthkannan.in/2022/06/12/goodbye-pi-hole-hello-coredns).
+CoreDNS server without any changes. 
  
-CoreDNS without any changes. 
-
 Images are generated automatically by GitHub actions.
 
-- GitHub Page: https://github.com/jeffscrum/coredns-blocker
-- DockerHub Page: https://hub.docker.com/r/jeffscrum/coredns-blocker
+- GitHub Page: https://github.com/jeffscrum/coredns
+- DockerHub Page: https://hub.docker.com/r/jeffscrum/coredns
 - CoreDNS Page: https://github.com/coredns/coredns
-- Blocker Plugin: https://github.com/icyflame/blocker
-- Rate Limit Plugin: https://coredns.io/explugins/rrl/
+- Blocker Plugin: https://github.com/icyflame/blocker + [blog note](https://blog.siddharthkannan.in/2022/06/12/goodbye-pi-hole-hello-coredns)
+- Response Rate Limiting Plugin: https://coredns.io/explugins/rrl
+- Alternate Plugin: https://coredns.io/explugins/alternate
