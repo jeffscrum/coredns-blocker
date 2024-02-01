@@ -10,7 +10,7 @@ x-logging:
 
 services:
   coredns:
-    image: jeffscrum/coredns-blocker:1.11.1
+    image: jeffscrum/coredns:1.11.1
     container_name: coredns
     restart: unless-stopped
     ports:
