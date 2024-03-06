@@ -6,11 +6,11 @@ ARG BUILD_VERSION=v1.11.1
 
 FROM ${GOLANG_IMAGE} AS stage1
 ARG BUILD_VERSION
-RUN git clone --depth 1 --branch ${BUILD_VERSION} https://github.com/coredns/coredns.git /coredns; \
-    git clone --depth 1 https://github.com/icyflame/blocker.git /coredns/plugin/blocker; \
-    sed -ie '/^forward:forward/i blocker:blocker' /coredns/plugin.cfg; \
-    sed -ie '/^root:root/i rrl:github.com/coredns/rrl/plugins/rrl' /coredns/plugin.cfg; \
-    sed -ie '/^root:root/i alternate:github.com/coredns/alternate' /coredns/plugin.cfg
+RUN git clone --depth 1 --branch ${BUILD_VERSION} https://github.com/coredns/coredns.git /coredns \
+    && git clone --depth 1 https://github.com/icyflame/blocker.git /coredns/plugin/blocker \
+    && sed -ie '/^forward:forward/i blocker:blocker' /coredns/plugin.cfg \
+    && sed -ie '/^root:root/i rrl:github.com/coredns/rrl/plugins/rrl' /coredns/plugin.cfg \
+    && sed -ie '/^root:root/i alternate:github.com/coredns/alternate' /coredns/plugin.cfg
 WORKDIR /coredns
 RUN make
 
@@ -33,6 +33,7 @@ FROM ${BASE}
 COPY --from=stage2 /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=stage2 /coredns /coredns
 USER nonroot:nonroot
+
 EXPOSE 53 53/udp
 VOLUME ["/etc/coredns"]
 ENTRYPOINT ["/coredns"]
