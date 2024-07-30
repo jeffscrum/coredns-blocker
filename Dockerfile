@@ -1,4 +1,4 @@
-ARG GOLANG_IMAGE=golang:1.20.13
+ARG GOLANG_IMAGE=golang:1.21.12
 ARG DEBIAN_IMAGE=debian:stable-slim
 ARG BASE=gcr.io/distroless/static-debian11:nonroot
 ARG BUILD_VERSION=v1.11.1
